@@ -24,6 +24,7 @@
       }, this);
     },
 
+    //adds/removes queen to/from the board
     togglePiece: function(rowIndex, colIndex) {
       this.get(rowIndex)[colIndex] = + !this.get(rowIndex)[colIndex];
       this.trigger('change');
@@ -79,11 +80,27 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      var rowArr = this.attributes[rowIndex];
+      var sum = 0;
+      for(var i = 0; i < rowArr.length; i++){
+        sum += rowArr[i];
+      }
+      if(sum > 1){
+        console.log('true');
+        return true;
+      }
+
+      console.log('false');
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      for(var i = 0; i < this.attributes.n; i++){
+        if(!this.hasRowConflictAt(i)){
+          return true;
+        }
+      }
       return false; // fixme
     },
 
