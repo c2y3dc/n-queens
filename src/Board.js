@@ -97,7 +97,7 @@
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
       for(var i = 0; i < this.attributes.n; i++){
-        if(!this.hasRowConflictAt(i)){
+        if(this.hasRowConflictAt(i) === true){
           return true;
         }
       }
