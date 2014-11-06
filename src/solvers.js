@@ -15,7 +15,27 @@
 
 window.findNRooksSolution = function(n) {
   var solution = undefined; //fixme
+  var board = new Board({n:n});
 
+
+  var rowSearch = function (r,c) {
+    board.togglePiece(r,c);
+    //place rook on board
+    if (board.hasRowConflicts() === true) {            //has conflicts
+      //if there is a conflict then move piece to next column
+      board.togglePiece(r,++c);
+      //check if there's a conflict
+      rowSearch();
+    } else if (board.hasRowConflicts() === false) {    //no conflicts
+      //add piece to next row
+      board.togglePiece(++r,c);
+      board.hasRowConflicts();
+    }
+  }
+
+  rowSearch(0,0);
+
+  }
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
 };
