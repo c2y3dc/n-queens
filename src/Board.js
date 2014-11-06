@@ -145,16 +145,18 @@
       var row= this.rows();
       var sum = 0;
       var counter = majorDiagonalColumnIndexAtFirstRow;
-
-      debugger;
-      for(var i = 0; i < n; i++) {
-        if (counter < n){
-        sum += row[i][counter];
-          counter++;
-        if(counter > row.length){
-          break;
-        }
+      if (counter < 0) {
+        counter = Math.abs(counter);
       }
+      debugger;
+      for(var i = counter; i < n; i++) {
+        if (counter < n){
+          sum += row[i][counter];
+          counter++;
+          if(counter > row.length){
+            break;
+          }
+        }
       }
 
       if (sum > 1){
@@ -170,7 +172,7 @@
           return true;
         }
       }
-      return false; // fixme
+      return false;
     },
 
 
