@@ -177,11 +177,11 @@
       var colIndex = minorDiagonalColumnIndexAtFirstRow;
 
       if (colIndex > n) {
-        i = colIndex - 2;
+        i = colIndex - 4;
       }
       
       for (i; i > 0; i--) {
-        if (colIndex < n){
+        if (colIndex > n){
           sum += rows[i][counter];
           counter--;
           if(colIndex < 0){
