@@ -176,31 +176,35 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      var n = this.attributes.n;
+      var n = this.attributes.n; // board size
       var rows = this.rows();
-      var sum = 0, i = n + 2;
-      var colIndex = minorDiagonalColumnIndexAtFirstRow;
+      var colIndex = minorDiagonalColumnIndexAtFirstRow - 1;
+      var sum = 0, i = colIndex - (n - 1);
 
-      if (colIndex > n) {
-        i = colIndex - 4;
-      }
+      // if (colIndex < 0) {
+      //   i = colIndex - 4;
+      // }
 
-      for (i; i > 0; i--) {
+      for (i; i >= 0; i--) {
         if (colIndex > n){
           sum += rows[i][colIndex];
           colIndex--;
-          if(colIndex < 0){
+          if(colIndex <= 0){
             break;
           }
         }
       }
+
       return (sum > 1) ? true : false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+      // get size of board
       var n = this.attributes.n;
-      var i = n + 2;
+      //start index should be
+
+      var i = n + (n - 3);
 
       for (i; i >= 0; i--) {
         if(this.hasMinorDiagonalConflictAt(i)) {
