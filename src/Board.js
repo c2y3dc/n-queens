@@ -179,15 +179,15 @@
       var n = this.attributes.n; // board size
       var rows = this.rows();
       var colIndex = minorDiagonalColumnIndexAtFirstRow - 1;
-      var sum = 0, i = colIndex - (n - 1);
+      var sum = 0, rowIndex = colIndex - (n - 1);
 
       // if (colIndex < 0) {
       //   i = colIndex - 4;
       // }
 
-      for (i; i >= 0; i--) {
+      for (rowIndex; rowIndex >= 0; rowIndex--) {
         if (colIndex > n){
-          sum += rows[i][colIndex];
+          sum += rows[rowIndex][colIndex];
           colIndex--;
           if(colIndex <= 0){
             break;
@@ -202,9 +202,7 @@
     hasAnyMinorDiagonalConflicts: function() {
       // get size of board
       var n = this.attributes.n;
-      //start index should be
-
-      var i = n + (n - 3);
+      var i = n + (n - (n - 1));
 
       for (i; i >= 0; i--) {
         if(this.hasMinorDiagonalConflictAt(i)) {
