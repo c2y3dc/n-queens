@@ -12,27 +12,26 @@
 
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
-  var findSolution = function (board, n, row, verifier, callback) {
-    debugger;
-    // if all rows exhausted?
-    if(row === n){
-      // increase count
-      return callback();
-    }
-
-    for (var i = 0; i < n; i++) {
-    //iterate over a row, making each decision once
-      // place a piece
-      board.togglePiece(row, i);
-      // if !conflicts
-      if(!board[verifier]()){
-        // recurse
-        return findSolution(board, n, row + 1, verifier, callback);
-      }
-    // remove a piece
-      board.togglePiece(row, i);
-    }
+var findSolution = function (board, n, row, verifier, callback) {
+  // if all rows exhausted?
+  if(row === n){
+    // increase count
+    return callback();
   }
+
+  for (var i = 0; i < n; i++) {
+  //iterate over a row, making each decision once
+    // place a piece
+    board.togglePiece(row, i);
+    // if !conflicts
+    if(!board[verifier]()){
+      // recurse
+      return findSolution(board, n, row + 1, verifier, callback);
+    }
+  // remove a piece
+    board.togglePiece(row, i);
+  }
+}
 
 window.findNRooksSolution = function(n) {
   var board = new Board({n:n});
@@ -97,6 +96,31 @@ window.findNQueensSolution = function(n) {
 window.countNQueensSolutions = function(n) {
   var solutionCount = undefined; //fixme
 
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+   var findSolution = function (row) {
+    debugger;
+    // if all rows exhausted?
+    if(row === n){
+      // increase count
+      solutionCount++;
+      // stop
+      return;
+    }
+
+    for (var i = 0; i < n; i++) {
+    //iterate over a row, making each decision once
+      // place a piece
+      board.togglePiece(row, i);
+      // if !conflicts
+      if(!board.hasAnyRooksConflicts()){
+        // recurse
+        findSolution(row + 1);
+      }
+    // remove a piece
+      board.togglePiece(row, i);
+    }
+  }
+
+  findSolution(0);
+
   return solutionCount;
 };
