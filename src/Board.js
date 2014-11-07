@@ -132,17 +132,22 @@
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
       var n = this.attributes.n;
       var rows = this.rows();
-      var sum = 0, i = 0, counter = 0;
+      var sum = 0, i = 0;
       var colIndex = majorDiagonalColumnIndexAtFirstRow;
 
+      // change row to find conflicts below major diagonal if column index is negative
       if (colIndex < 0) {
         i = Math.abs(colIndex);
       }
-      
+
+      // loop through row
       for (i; i < n; i++) {
+        // check if colIndex is less than board size
         if (colIndex < n){
-          sum += rows[i][counter];
-          counter++;
+          // increment sum to 0 or 1;
+          sum += rows[i][colIndex];
+          // increment column index
+          colIndex++;
           if(colIndex > rows.length){
             break;
           }
@@ -173,17 +178,17 @@
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
       var n = this.attributes.n;
       var rows = this.rows();
-      var sum = 0, i = n + 2, counter = 0;
+      var sum = 0, i = n + 2;
       var colIndex = minorDiagonalColumnIndexAtFirstRow;
 
       if (colIndex > n) {
         i = colIndex - 4;
       }
-      
+
       for (i; i > 0; i--) {
         if (colIndex > n){
-          sum += rows[i][counter];
-          counter--;
+          sum += rows[i][colIndex];
+          colIndex--;
           if(colIndex < 0){
             break;
           }
